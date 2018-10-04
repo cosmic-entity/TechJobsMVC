@@ -29,8 +29,33 @@
 
 @if (ViewBag.jobs != null)
 {
+    @if (!ViewBag.jobs[0].ContainsKey("noResult"))
+    {
+        <h3>@ViewBag.jobs.Count Result(s)</h3>
+    }
 
-    <h3>@ViewBag.jobs.Count Result(s)</h3>
+    @foreach (Dictionary<string, string> job in ViewBag.jobs)
+        {
+            <table class="job-listing">
+                <tbody>
+                    @foreach (KeyValuePair<string, string> item in job)
+                        {
+                            @if (item.Key.Equals("noResult"))
+                            {
+                                <p>There is no result for @item.Value</p>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>@item.Key</td>
+                                    <td>@item.Value</td>
+                                </tr>
+                            }
+                        }
+                </tbody>
+            </table>
+        }
 
+    //<h3>@ViewBag.jobs.Count Result(s)</h3>
     // TODO #2 - Loop over jobs dictionary and display all job fields 
-}
+    }
